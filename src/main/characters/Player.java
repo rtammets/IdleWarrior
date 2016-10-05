@@ -9,6 +9,22 @@ public class Player extends Character{
     double exp;
     double money;
     int level;
+
+    int attMax;
+    int attMin;
+    int critChance;
+    int blackDiamonds;
+    int lifeRegen;
+    int manaRegen;
+
+    int vitality;
+    int power;
+    int wisdom;
+
+    int buttonClicks;
+    int timesDied;
+    int totalGold;
+
     //shop/upgrade staatused:
 
     //konstruktor - superklassi asjad + lisamuutujad

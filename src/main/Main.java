@@ -5,10 +5,14 @@ import java.util.Scanner;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+
+
 
 /**
  * Created by R on 02/10/2016.
@@ -39,26 +43,59 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
     //Deklareerin muutujaid
-    Button menuNupp1, menuNupp2;
     double version = 0.1; //versioon
+    Stage window;// loon Stage window, hiljem omistan väärtuse primaryStage
+    Scene game, menu;
     //launch(args) käivitab JavaFX app-i. Stage = Kogu aken, akna sisu = scene.
+
     public static void main(String[] args) {
-            launch(args);
+        System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
+        launch(args);
     }//psvm
 
     public void start(Stage primaryStage) throws Exception {
-        //Menüü nupud
-        menuNupp1 = new Button("Play");
-        //
-        menuNupp2 = new Button("Sule");
+        window = primaryStage;
+
+        Label tervitus = new Label("Welcome to Idle Warrior v"+version);
         //Menüü ülesehitus
-        StackPane layout = new StackPane();
-        layout.getChildren().addAll(menuNupp1,menuNupp2);
-        Scene menu = new Scene(layout, 800, 600);
+
+        //nupud
+        Button playButton = new Button("Play");
+        playButton.setOnAction(e -> window.setScene(game));
+        Button menuNupp2 = new Button("Quit");
+        menuNupp2.setOnAction(event -> window.close());
+        Button menuNupp3 = new Button("Tagasi");
+        menuNupp3.setOnAction(event -> window.setScene(menu));
+
+        //esimene layout
+        VBox layoutMenu = new VBox(); //vbox teeb tulba muutuja on pikslite vahe
+        layoutMenu.getChildren().addAll(playButton,menuNupp2);
+        //gridPane
+        GridPane gridLayout = new GridPane();
+        gridLayout.setPadding(new Insets(10,10,10,10));
+        gridLayout.setVgap(0);
+        gridLayout.setHgap(10);
+        gridLayout.setConstraints(playButton,1,4);
+        gridLayout.setConstraints(menuNupp2,1,6);
+        gridLayout.setConstraints(tervitus,1,0);
+        gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus);
+        menu = new Scene(gridLayout,250,100);
+        //BorderPane borderPane = new BorderPane();
+        //borderPane.setTop(tervitus);
+        //borderPane.setCenter(layoutMenu);
+        //menu = new Scene(borderPane, 300, 300);
+        //teine layout
+        StackPane layoutGame = new StackPane();
+        layoutGame.getChildren().addAll(menuNupp3);
+        game = new Scene(layoutGame, 800, 600);
+
+
+
+
         //Akna seaded
-        primaryStage.setTitle("Idle Warrior v"+version);
-        primaryStage.setScene(menu); //määran default akna
-        primaryStage.show(); //näita akent
+        window.setTitle("Idle Warrior v"+version+" by Rasmus");
+        window.setScene(menu); //määran default akna
+        window.show(); //näita akent
     }//mainLoop
 
 }//EOF
