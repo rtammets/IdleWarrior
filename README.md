@@ -7,3 +7,7 @@ Mängus saab olema erinevaid eesmärke, mille suunas püüelda.
 UPDATE:
 
 Mäng nullist uuesti loodud. Graafika jookseb JFrame najal.
+
+Minu koodi tohib kasutada Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) piires.
+This code may be used according to the Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license.
+https://creativecommons.org/licenses/by-nc/4.0/
