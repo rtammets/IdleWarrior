@@ -2,7 +2,6 @@ package Objektid;
 
 import Kuva.Assets;
 import Main.Main;
-import Main.Seisud.ManguSeis;
 
 import java.awt.*;
 
@@ -11,12 +10,12 @@ import java.awt.*;
  */
 public class Magic extends Tegelane {
     int kiirus = 3;
-    public int posX = x + ManguSeis.mangija.x+50;
-    public int posY = y + ManguSeis.mangija.y+50;
+//    public int posX = x + MangKaib.mangija.x+50;
+//    public int posY = y + MangKaib.mangija.y+50;
     private Main game;
 
-    public Magic(Main game, String name, int x, int y, int width, int height, int health, int damage) {
-        super(name, x, y, width, height, health, damage);
+    public Magic(Main game, int x, int y, int width, int height, int health, int damage) {
+        super( x, y, width, height, health, damage);
         this.game = game;
         this.x=x;
         this.y=y;
@@ -29,6 +28,6 @@ public class Magic extends Tegelane {
     }
 
     public void draw(Graphics g) {
-        g.drawImage(Assets.magic, x, y, width, height, null);
+        g.drawImage(Assets.magicAA, x, y, width, height, null);
     }
 }

@@ -10,8 +10,8 @@ import java.awt.*;
 public class playMenu extends Objekt {
 
 
-    public playMenu(String name, int width, int height, int drawX, int drawY) {
-        super(name, width, height, drawX, drawY);
+    public playMenu(int width, int height, int drawX, int drawY) {
+        super(width, height, drawX, drawY);
     }
 
     @Override
@@ -21,6 +21,6 @@ public class playMenu extends Objekt {
 
     @Override
     public void draw(Graphics g) {
-        g.drawImage(Assets.playWindow, x, y, width, height, null);
+//        g.drawImage(Assets.playWindow, x, y, width, height, null);
     }
 }

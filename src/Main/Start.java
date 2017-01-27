@@ -2,90 +2,76 @@ package Main;
 
 
 
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+
 /**
  *
  * See teeb mängu akna, kutsub Main funktsiooni.
  */
-public class Start {
+public class Start extends Application{
+
+
+    double version = 0.5; //versioon
+    Stage window;// loon Stage window, hiljem omistan väärtuse primaryStage
+    Scene gamescene, menu;
+    //    launch(args) käivitab JavaFX app-i. Stage = Kogu aken, akna sisu = scene.
+
+    Main game = new Main("Idle Warrior", 800, 600);
+    Label tervitus = new Label("Welcome to Idle Warrior v" + version+"\nControls:\nSpace - shoot\nArrow keys - move between areas\n ");
 
     public static void main(String[] args) {
-
         System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
-            Main game = new Main("IDLE WARRIOR", 600, 400); //loo sellise nime ja kujuga aken
-            game.start();//käivita mängu Main thread
-            System.out.println("Käivitan mängu...");
+        launch(args);
+    }//psvm
+        public void alusta (){
+            game.start();
+            window.close();
+        }
 
-    }
-}
-//////////////////////////////////////////////////////////////////TEST
-
-/*
-        Button playButton = new Button("Play");
-        playButton.setOnAction(e -> this.pressed = true, Start());
-        GridPane gridLayout = new GridPane();
-        gridLayout.setPadding(new Insets(10,10,10,10));
-        gridLayout.setVgap(0);
-        gridLayout.setHgap(10);
-        gridLayout.setConstraints(playButton,1,4);
-
-    }
-
-    public Start(){
-        if (pressed = true) {*/
-/*
-
-
-
-        Button menuNupp2 = new Button("Quit");
-        menuNupp2.setOnAction(event -> {Main.class.playing = false; window.close();});
-
-        GridPane gridLayout = new GridPane();
-        gridLayout.setPadding(new Insets(10,10,10,10));
-        gridLayout.setVgap(0);
-        gridLayout.setHgap(10);
-        gridLayout.setConstraints(playButton,1,4);
-        gridLayout.setConstraints(menuNupp2,1,6);
-        gridLayout.setConstraints(tervitus,1,0);
-        gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus);
-
-
-    //Menüü ülesehitus
+        public void start(Stage primaryStage)throws Exception{
+        window = primaryStage;
+        //Menüü ülesehitus
         //nupud
+        Button playButton = new Button("Play");
+        playButton.setOnAction(e -> alusta());
+        Button menuNupp2 = new Button("Quit");
+        menuNupp2.setOnAction(event -> window.close());
+        //Button tagasiNupp = new Button("Tagasi");
+        //tagasiNupp.setOnAction(event -> window.setScene(menu));
 
-        Button tagasiNupp = new Button("Tagasi");
-        tagasiNupp.setOnAction(event -> stopLoop());
-        Button ryndaNupp = new Button("ATTACK!");
-        ryndaNupp.setOnAction(e-> vastane1.getHit(tegelane1.dmg));
-        //esimene layout
-        VBox layoutMenu = new VBox(); //vbox teeb tulba muutuja on pikslite vahe
-        layoutMenu.getChildren().addAll(playButton,menuNupp2);
-        //Peamenüü
-        GridPane gridLayout = new GridPane();
-        gridLayout.setPadding(new Insets(10,10,10,10));
-        gridLayout.setVgap(0);
-        gridLayout.setHgap(10);
-        gridLayout.setConstraints(playButton,1,4);
-        gridLayout.setConstraints(menuNupp2,1,6);
-        gridLayout.setConstraints(tervitus,1,0);
-        gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus);
-        menu = new Scene(gridLayout,250,100);
-        //Mängumenüü
-        GridPane layoutGame = new GridPane();
-        layoutGame.setPadding(new Insets(0,30,30,0));
-        layoutGame.setConstraints(gameCanvas, 0,0);
-        layoutGame.setConstraints(tagasiNupp, 1,1);
-        layoutGame.setConstraints(ryndaNupp,0,1);
-        layoutGame.setConstraints(info,2,3);
-        layoutGame.setConstraints(info1,2,4);
-        layoutGame.setConstraints(info2,2,5);
-        layoutGame.setConstraints(info3,2,6);
-        //layoutGame.setConstraints();
-        layoutGame.getChildren().addAll(tagasiNupp,ryndaNupp,gameCanvas,info,info1,info2,info3);
-        game = new Scene(layoutGame, 800, 600);
-
-        //Akna üldised parameetrid
-        window.setTitle("Idle Warrior v"+version+" by Rasmus");
+            //esimene layout
+            VBox layoutMenu = new VBox(); //vbox teeb tulba muutuja on pikslite vahe
+            layoutMenu.getChildren().addAll(playButton,menuNupp2);
+            //Peamenüü
+            GridPane gridLayout = new GridPane();
+            gridLayout.setPadding(new Insets(10,10,10,10));
+            gridLayout.setVgap(0);
+            gridLayout.setHgap(10);
+            gridLayout.setConstraints(playButton,1,4);
+            gridLayout.setConstraints(menuNupp2,1,6);
+            gridLayout.setConstraints(tervitus,1,0);
+            gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus);
+            menu = new Scene(gridLayout,250,150);
+            //Akna seaded
+        window.setTitle("Idle Warrior 2");
         window.setScene(menu); //määran default akna
         window.show(); //näita akent
-}//main
- */
+    }//mainLoop
+}
+/*    public static void main(String[] args) {
+        System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
+        Main game = new Main("IDLE WARRIOR", 600, 400); //loo sellise nime ja kujuga aken
+        game.start();//käivita mängu Main thread
+    }
+}*/

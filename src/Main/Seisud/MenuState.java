@@ -12,8 +12,9 @@ public class MenuState extends State {
     private playMenu PlayMenu;
     public MenuState(Main game){
         super(game);
-        PlayMenu = new playMenu("playMenu",0,1400,600,400);
+        PlayMenu = new playMenu(0,1400,600,400);
     }
+
     public void tick() {
         PlayMenu.tick();
             }

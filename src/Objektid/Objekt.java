@@ -8,11 +8,11 @@ import java.awt.*;
  * Kõikide tegelaste superclass.
  */
 public abstract class Objekt{
-    String name = "";
+    //String name = "";
     public int width, height, x, y = 0;
 
-    public Objekt(String name, int x, int y, int width, int height){
-        this.name = name;
+    public Objekt(int x, int y, int width, int height){
+        //this.name = name;
         this.width = width;
         this.height = height;
         this.x = x;

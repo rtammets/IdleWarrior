@@ -1,49 +1,66 @@
 package Objektid;
 
-import Kuva.Assets;
+import static Kuva.Assets.*;
+import static Objektid.UIElements.Tekstid.newMessage;
+
 import Main.Main;
-import Main.Seisud.ManguSeis;
+import Main.Seisud.MangKaib;
+
 import java.awt.*;
-
-
+import java.awt.event.MouseEvent;
 
 
 /**
  *
  */
 public class Vastane extends Tegelane {
-        public String name;
+        public static int mobiNr = 0;
+        int drawHeight = (int)Math.round(this.height);
+        int drawWidth =  (int) Math.round(this.width);
         private boolean knockback = false;
         public int kiirus;
-        public int posY = y - height;
+        public int posX = (int) x - drawWidth;
+        public int posY = (int) y - drawHeight;
+        int barWidth = 100;
+        int maxMobHealth, damageMin,damageMax,mobXP,mobGold,mobLvl;
+
         Main game;
 
-    public Vastane(Main game, String name, int x, int y, int width, int height, int health, int damage, int kiirus) {
-        super(name, x, y, width, height, health, damage);
+    public Vastane(Main game, int x, int y, int width, int height, int health, int damage, int damageMax, int mobSpeed, String name, int mobXP, int mobGold, int mobLvl) {
+        super(x, y, width, height, health, damage);
         this.game = game;
+        this.kiirus = mobSpeed;
+        this.maxMobHealth = health;
         this.name = name;
-        this.kiirus = kiirus;
+        this.mobXP=mobXP;
+        this.mobGold=mobGold;
+        this.damageMin=damage;
+        this.damageMax=damageMax;
+        this.mobLvl=mobLvl;
     }
 
     private void hitPlayer (){
-        if (this.x <= ManguSeis.mangija.x + ManguSeis.mangija.width) {
-            ManguSeis.mangija.health -= this.damage;
-            System.out.println("Said viga, elusid järel: " + ManguSeis.mangija.health);
+
+        if (this.x <= MangKaib.mangija.x + MangKaib.mangija.width) {
+            int hitDamage = (int)Math.round(Math.random()*(this.damageMax-damageMin)+damageMin);
+            MangKaib.mangija.health -= hitDamage;
+            newMessage("You got hit for: " + hitDamage+".");
+           // System.out.println("Said viga, elusid järel: " + MangKaib.mangija.health);
         }
     }
 
     public int Move (int kiirus) { //mängija suunas liikumine
-     if (this.knockback && this.x < ManguSeis.mangija.x + ManguSeis.mangija.width+100){
+     if (this.knockback && this.x < MangKaib.mangija.x + MangKaib.mangija.width+100){
          return (this.x+(6*this.kiirus));
-        } if (this.knockback && this.x > ManguSeis.mangija.x + ManguSeis.mangija.width+100) {
+        } if (this.knockback && this.x > MangKaib.mangija.x + MangKaib.mangija.width+100) {
             this.knockback = false;
             return (this.x-this.kiirus);
         }
 
-        if (this.x > ManguSeis.mangija.x+ManguSeis.mangija.width && !this.knockback){
+        if (this.x > MangKaib.mangija.x+ MangKaib.mangija.width && !this.knockback){
             return (this.x-kiirus);
         }
-        if (this.x <= ManguSeis.mangija.x+ManguSeis.mangija.width && !this.knockback) {
+        if (this.x <= MangKaib.mangija.x+ MangKaib.mangija.width && !this.knockback) {
             this.knockback = true;
             return (this.x + (6 * this.kiirus));
         }
@@ -55,14 +72,18 @@ public class Vastane extends Tegelane {
                this.x = Move(this.kiirus);
                hitPlayer();
            }
+
+
+
         }
-
-
     public void draw(Graphics g) {
-            g.drawImage(Assets.zombie, this.x, this.posY, this.width, this.height, null);;
+        g.drawImage(Mobid[mobiNr], this.x, this.posY, drawWidth, drawHeight, null);
+        g.setColor(Color.red);
+        g.fillRect(this.x,(this.posY-15),100,10);
+        g.setColor(Color.green);
+        this.barWidth = Math.round((100*this.health)/this.maxMobHealth);
+        g.fillRect(this.x,(this.posY-15),(this.barWidth),10);
+        g.setColor(Color.darkGray);
+        g.drawString(this.name, this.x, this.posY-20);
         }
-        /*public int getHit(int enemyDmg) {
-            return 0;
-        }
-        */
 }

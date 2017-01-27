@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_iw2" default="compile.module.iw2">
+  <dirname property="module.iw2.basedir" file="${ant.file.module_iw2}"/>
+  
+  <property name="module.jdk.home.iw2" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.iw2" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.iw2" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.iw2" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="iw2.output.dir" value="${module.iw2.basedir}/out/production/IW2"/>
+  <property name="iw2.testoutput.dir" value="${module.iw2.basedir}/out/test/IW2"/>
+  
+  <path id="iw2.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="iw2.module.production.classpath">
+    <path refid="${module.jdk.classpath.iw2}"/>
+  </path>
+  
+  <path id="iw2.runtime.production.module.classpath">
+    <pathelement location="${iw2.output.dir}"/>
+  </path>
+  
+  <path id="iw2.module.classpath">
+    <path refid="${module.jdk.classpath.iw2}"/>
+    <pathelement location="${iw2.output.dir}"/>
+  </path>
+  
+  <path id="iw2.runtime.module.classpath">
+    <pathelement location="${iw2.testoutput.dir}"/>
+    <pathelement location="${iw2.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.iw2">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.iw2">
+    <patternset refid="excluded.from.module.iw2"/>
+  </patternset>
+  
+  <path id="iw2.module.sourcepath">
+    <dirset dir="${module.iw2.basedir}">
+      <include name="src"/>
+      <include name="src/images"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.iw2" depends="compile.module.iw2.production,compile.module.iw2.tests" description="Compile module IW2"/>
+  
+  <target name="compile.module.iw2.production" depends="register.custom.compilers" description="Compile module IW2; production classes">
+    <mkdir dir="${iw2.output.dir}"/>
+    <javac2 destdir="${iw2.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.iw2}/javac">
+      <compilerarg line="${compiler.args.iw2}"/>
+      <bootclasspath refid="iw2.module.bootclasspath"/>
+      <classpath refid="iw2.module.production.classpath"/>
+      <src refid="iw2.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.iw2"/>
+    </javac2>
+    
+    <copy todir="${iw2.output.dir}">
+      <fileset dir="${module.iw2.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.iw2.basedir}/src/images">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.iw2.tests" depends="register.custom.compilers,compile.module.iw2.production" description="compile module IW2; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.iw2" description="cleanup module">
+    <delete dir="${iw2.output.dir}"/>
+    <delete dir="${iw2.testoutput.dir}"/>
+  </target>
+</project>
