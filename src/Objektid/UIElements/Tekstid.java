@@ -2,6 +2,7 @@ package Objektid.UIElements;
 
 import Kuva.Assets;
 import Main.Seisud.MangKaib;
+import Main.Sisendid.Sisendid;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -13,12 +14,13 @@ import static Main.ajaLoendur.ajaLoendur;
  * Created by R on 15/01/2017.
  */
 public class Tekstid {
-    public  BufferedImage nupuke = Assets.Nupp[0];
+    public static BufferedImage nupuke = Assets.Nupp[0];
     public  BufferedImage nupuke1 = Assets.Nupp[1];
     public  BufferedImage nupuke2 = Assets.Nupp[2];
     public  BufferedImage nupuke3 = Assets.Nupp[3];
-    //public static String message = new String();
-    //static String[] chatbox = new String[];
+//    public static BufferedImage[] nupud = new BufferedImage[Assets.Nupp.length];
+
+
     static LinkedList<String> chatbox = new LinkedList<>();
     public static int x;
     public static int y;
@@ -52,6 +54,9 @@ public class Tekstid {
         for (int i=0; i<maxRead; i++){
             chatbox.add(i, String.valueOf(" "));
         }
+    //    for (int i = 0; i<Assets.Nupp.length; i++){
+  //          nupud[i] = Assets.Nupp[i];
+     //   }
     }
 
     public Tekstid(int x, int y ){//nt width, int height) {
@@ -79,14 +84,15 @@ public class Tekstid {
             int i = (int)((Math.random()*(18-0))+0);
             newMessage(randomTekstid[i]);
         }
-
     }
 
     public void draw(Graphics g) {
-            g.drawImage(nupuke,620,300,null);//dps
+        for (int i=0; i<Assets.Nupp.length; i++) g.drawImage(Assets.Nupp[i], (610+(35*i)),300,null);
+          /*  g.drawImage(Assets.Nupp[0],620,300,null);//dps
             g.drawImage(nupuke1,660,300,null);//AA
             g.drawImage(nupuke2,700,300,null);//heal
             g.drawImage(nupuke3,740,300,null);//Idle gains
+        */
         for (int i=0; i<chatbox.size(); i++) {
              g.drawString(chatbox.get(i), x, (y+(i*15)));
         }

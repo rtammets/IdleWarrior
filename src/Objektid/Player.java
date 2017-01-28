@@ -14,6 +14,7 @@ import static Main.Main.kuva;
 import static Main.Seisud.MangKaib.mangija;
 import static Main.Seisud.MangKaib.mspawner;
 import static Main.Seisud.MangKaib.taust;
+import static Main.Start.nameHolder;
 import static Objektid.UIElements.Taust.taustanr;
 import static Objektid.UIElements.Tekstid.newMessage;
 
@@ -25,7 +26,7 @@ import static Objektid.UIElements.Tekstid.newMessage;
  */
 public class Player extends Tegelane {
     public String name = "Player";
-    public String tiitel = "";
+    public String title = "";
     private int bcdown = 0; //buttoncheck Down
     public int posY = y - height;
 
@@ -35,7 +36,7 @@ public class Player extends Tegelane {
     //Mängija muutujad
 
     //combat
-    int maxHealth;// hp baridega seonduva jaoks
+    public int maxHealth;// hp baridega seonduva jaoks
     int maxMana = 100;
     public int mana = maxMana;
     int healthRegen = (2);
@@ -43,11 +44,11 @@ public class Player extends Tegelane {
     int barWidth = 100;
 
     //
-    int clickDamage = 1;
+    public static int clickDamage = 5;
     //autoattacki jaoks
     public int aaDamage = 10;
     private double aaSpeed = 140; //mitu gameticki oota enne autoattacki
-    private boolean boughtAA = false;
+    public boolean boughtAA = false;
 
     //skill mana costs
     int manaCost = 5;
@@ -61,8 +62,8 @@ public class Player extends Tegelane {
     public int killcount, exp, blackDiamonds = 0;
     public int coins = 60000;
     public int myLevel = 1;
-    int coinRegen = 0;
-    int expPassive = 0;
+    public int coinRegen = 0;
+    public int expPassive = 0;
     public int damage;
 
 
@@ -75,18 +76,12 @@ public class Player extends Tegelane {
         this.damage = damage;
         this.game = game;
         maxHealth = (int) this.health;
+        this.name = nameHolder;
     }
-/*
-    private class hiireKlass extends MouseAdapter{
-        public void mouseClicked (MouseEvent e){
-            newMessage("cyka blyat");
 
-         //   if (e.isMetaDown()){}
-        }
+    public void misNimi(){
 
     }
-*/
-
     //et Player käiks gametickidega kaasas ja teeks midagi
     public void tick() {
 
@@ -220,6 +215,6 @@ public class Player extends Tegelane {
         mangija.barWidth = Math.round((100*mangija.health)/mangija.maxHealth);
         g.fillRect(mangija.x,(mangija.posY-15),(mangija.barWidth),10);
         g.setColor(Color.darkGray);
-        g.drawString((this.tiitel + this.name), this.x, this.posY-20);
+        g.drawString((this.title + this.name), this.x, this.posY-20);
     }
 }

@@ -14,6 +14,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static Main.Seisud.MangKaib.mangija;
+
 
 /**
  *
@@ -28,7 +30,10 @@ public class Start extends Application{
     //    launch(args) käivitab JavaFX app-i. Stage = Kogu aken, akna sisu = scene.
 
     Main game = new Main("Idle Warrior", 800, 600);
-    Label tervitus = new Label("Welcome to Idle Warrior v" + version+"\nControls:\nSpace - shoot\nArrow keys - move between areas\n ");
+    Label tervitus = new Label("Welcome to Idle Warrior" +"\nControls:\nSpace - shoot\nArrow keys - move between areas\n ");
+    TextField tekstiVali = new TextField();
+    public static String nameHolder = new String();
+
 
     public static void main(String[] args) {
         System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
@@ -36,6 +41,7 @@ public class Start extends Application{
     }//psvm
         public void alusta (){
             game.start();
+            nameHolder = tekstiVali.getText();
             window.close();
         }
 
@@ -47,6 +53,7 @@ public class Start extends Application{
         playButton.setOnAction(e -> alusta());
         Button menuNupp2 = new Button("Quit");
         menuNupp2.setOnAction(event -> window.close());
+        tekstiVali.setPromptText("Sinu nimi");
         //Button tagasiNupp = new Button("Tagasi");
         //tagasiNupp.setOnAction(event -> window.setScene(menu));
 
@@ -58,10 +65,11 @@ public class Start extends Application{
             gridLayout.setPadding(new Insets(10,10,10,10));
             gridLayout.setVgap(0);
             gridLayout.setHgap(10);
+            gridLayout.setConstraints(tekstiVali, 1,1);
             gridLayout.setConstraints(playButton,1,4);
             gridLayout.setConstraints(menuNupp2,1,6);
             gridLayout.setConstraints(tervitus,1,0);
-            gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus);
+            gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus,tekstiVali);
             menu = new Scene(gridLayout,250,150);
             //Akna seaded
         window.setTitle("Idle Warrior 2");

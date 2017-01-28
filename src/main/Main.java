@@ -81,6 +81,7 @@ public class Main implements Runnable {
         if(State.leiaSeis() != null) State.leiaSeis().draw(g); //joonistab mänguaknasse spraidid
         //setcolor ja kujundite joonistamine. neid kasutan hiljem, et teha hp bare jne....
         g.setFont(new Font("Arial", Font.BOLD, 13));
+        g.drawString("Nimi: "+String.valueOf(mangija.title+mangija.name),610,25);
         g.drawString("Elud: "+String.valueOf(mangija.health),610,40);
         g.drawString("Mana: "+String.valueOf(mangija.mana),610,55);
         g.drawString("Level: "+String.valueOf(mangija.myLevel)+" at "+ String.valueOf(mangija.exp) + " EXP",610,70);

@@ -15,7 +15,7 @@ import static Objektid.UIElements.Tekstid.newMessage;
 import static Objektid.Vastane.mobiNr;
 
 /**
- * Created by R on 07/01/2017.
+ * See klass vastutab vastaste loomise eest.
  */
 public class mobSpawner extends Tegelane {
     Main game;
@@ -25,11 +25,6 @@ public class mobSpawner extends Tegelane {
     //int totalSpawned = 0; mdea äkki on huvitav kunagi
     public int maxEnemies = 1;
     public static int spawnMin, spawnMax = 0;
-
-
-
-    //mobide spawn list
-    //   public static int[] spawnTypes = {0,1,2,3,4,5,6,7,8,9};
 
 
 //    public mobSpawner(Main game, int x, int y, int width, int height, int health, int damage, int kiirus) {
@@ -67,7 +62,7 @@ public class mobSpawner extends Tegelane {
 // NB! checki kõigepealt kas vastaseid on, muidu crashib.. tühja hulka ei delete
             if (enemies.size() > 0 && tempMob.health <= 0) {
                 Loot(tempMob.mobXP); // testime loot funktsiooni!
-                newMessage(tempMob.name+ " suri.");
+                newMessage(tempMob.name+ " died.");
                 removeMob(tempMob);
                 bcdown = 140;
             }

@@ -4,10 +4,7 @@ package Main.Seisud;
 
 import Main.Main;
 import Objektid.*;
-import Objektid.UIElements.Taust;
-import Objektid.UIElements.Tekstid;
-import Objektid.UIElements.uiBox;
-import Objektid.UIElements.uiSide;
+import Objektid.UIElements.*;
 
 import java.awt.*;
 
@@ -30,10 +27,6 @@ public class MangKaib extends State{
     public static mobSpawner mspawner;
     public static Tekstid uusRida;
 
-    //temp
-
-
-
     public MangKaib(Main game){
         super(game);
         taust = new Taust(0,0,600,400);
@@ -41,7 +34,6 @@ public class MangKaib extends State{
         mobSpawner.lisaMobInfo(); // laeme mob info.
         //game, width height draw x draw y, elud, damage, nimi, exp
         mangija = new Player(game, 97,174,50,370,100,10);
-
         mspawner = new mobSpawner(game, Mobid[13].getWidth(), Mobid[13].getHeight(), 450, 370, km[13].elud, km[13].dpsMin, km[13].dpsMax, km[13].mobSpeed, km[13].nimi, km[13].mobXp, km[13].mobGold,km[13].mobGold);
 //        mspawner = new mobSpawner(game, 97,147,450,370,50,5,1);
         magicAttack = new magicAttack(game,(mangija.x+mangija.width-15),(mangija.y-(mangija.height/2)),40,20,1,mangija.damage);
