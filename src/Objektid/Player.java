@@ -59,7 +59,8 @@ public class Player extends Tegelane {
     int power = 1;
     int wisdom = 1;
 
-    public int killcount, exp, blackDiamonds = 0;
+    public int killcount, exp;
+    int blackDiamonds = 10;
     public int coins = 60000;
     public int myLevel = 1;
     public int coinRegen = 0;

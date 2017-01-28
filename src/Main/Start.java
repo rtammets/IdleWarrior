@@ -30,7 +30,7 @@ public class Start extends Application{
     //    launch(args) käivitab JavaFX app-i. Stage = Kogu aken, akna sisu = scene.
 
     Main game = new Main("Idle Warrior", 800, 600);
-    Label tervitus = new Label("Welcome to Idle Warrior" +"\nControls:\nSpace - shoot\nArrow keys - move between areas\n ");
+    Label tervitus = new Label("Welcome to Idle Warrior" +"\nControls:\nSpace - shoot \nClick on enemies for more damage \nArrow keys - move between areas\nA; D; H; I; - shop");
     TextField tekstiVali = new TextField();
     public static String nameHolder = new String();
 
@@ -53,7 +53,7 @@ public class Start extends Application{
         playButton.setOnAction(e -> alusta());
         Button menuNupp2 = new Button("Quit");
         menuNupp2.setOnAction(event -> window.close());
-        tekstiVali.setPromptText("Sinu nimi");
+        tekstiVali.setPromptText("Your name");
         //Button tagasiNupp = new Button("Tagasi");
         //tagasiNupp.setOnAction(event -> window.setScene(menu));
 
@@ -70,7 +70,7 @@ public class Start extends Application{
             gridLayout.setConstraints(menuNupp2,1,6);
             gridLayout.setConstraints(tervitus,1,0);
             gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus,tekstiVali);
-            menu = new Scene(gridLayout,250,150);
+            menu = new Scene(gridLayout,250,250);
             //Akna seaded
         window.setTitle("Idle Warrior 2");
         window.setScene(menu); //määran default akna
