@@ -11,6 +11,7 @@ import Objektid.UIElements.Taust;
 
 import static Kuva.Assets.Taustad;
 import static Main.Main.kuva;
+import static Main.Main.saveProgress;
 import static Main.Seisud.MangKaib.mangija;
 import static Main.Seisud.MangKaib.mspawner;
 import static Main.Seisud.MangKaib.taust;
@@ -72,6 +73,16 @@ public class Player extends Tegelane {
 
 
 
+    ///
+/// Savegame jaoks
+    public static String playerInfo(){
+
+        return ( mangija.title+mangija.name + ","+ mangija.myLevel+","+mangija.coins);
+    }
+
+
+    ///
+
     public Player(Main game, int x, int y, int width, int height, int health, int damage) {
         super(x, y, width, height, health, damage);
         this.damage = damage;
@@ -87,83 +98,86 @@ public class Player extends Tegelane {
     public void tick() {
 
         bcdown--;
-        if (this.checkHealth()){
+        if (this.checkHealth()) {
             //
             //generate resources
-            if (sekundid>=regenTime) checkResources();
+            if (sekundid >= regenTime) checkResources();
             this.checkLevel();
 
 
-            if (bcdown<=0 && mspawner.enemies.size()<=0){
-            if (game.getNupuVajutus().up) {
-                if(taustanr==3){
-                    taustanr = 6;
-                    bcdown=60;
-                }
+            if (bcdown <= 0 && mspawner.enemies.size() <= 0) {
+                if (game.getNupuVajutus().up) {
+                    if (taustanr == 3) {
+                        taustanr = 6;
+                        bcdown = 60;
+                    }
 
-            }
-            if (game.getNupuVajutus().down) {
-                if(taustanr==6){
-                    taustanr = 3;
-                    bcdown=60;
+                }
+                if (game.getNupuVajutus().down) {
+                    if (taustanr == 6) {
+                        taustanr = 3;
+                        bcdown = 60;
+                    }
+                }
+                if (game.getNupuVajutus().left) {
+                    if (taustanr > 1 && taustanr < (Taustad.length - 2)) {
+                        Taust.taustanr -= 1;
+                        bcdown = 60;
+                        //System.out.println(taustanr);
+                    }
+                }
+                if (game.getNupuVajutus().right) {
+                    if (taustanr > 0 && taustanr < (Taustad.length - 3)) {
+                        Taust.taustanr += 1;
+                        bcdown = 60;
+                        //System.out.println(taustanr);
+                    }
+                    if (taustanr == 4 && mangija.blackDiamonds < 5) {
+                        bcdown = 60;
+                        newMessage("Come back when you've found enough black diamonds...");
+                    }
+                    if (taustanr == 4 && mangija.blackDiamonds >= 5) {
+                        mangija.blackDiamonds -= 5;
+                        Taust.taustanr += 1;
+                        bcdown = 60;
+                        newMessage("Three of your black diamonds turn to dust.");
+                        newMessage("You have entered Geometra's throne. Good luck!");
+                    }
                 }
             }
-            if (game.getNupuVajutus().left) {
-                if(taustanr>1 && taustanr< (Taustad.length-2)){
-                    Taust.taustanr -=1;
-                    bcdown=60;
-                    //System.out.println(taustanr);
-                }
-            }
-            if (game.getNupuVajutus().right) {
-                if(taustanr >0 && taustanr< (Taustad.length-3)){
-                    Taust.taustanr +=1;
-                    bcdown=60;
-                    //System.out.println(taustanr);
-                }
-                if (taustanr==4 && mangija.blackDiamonds < 5) {
-                    bcdown=60;
-                    newMessage("Come back when you've found enough black diamonds...");
-                }
-                if (taustanr==4 && mangija.blackDiamonds >= 5){
-                    mangija.blackDiamonds -=5;
-                    Taust.taustanr +=1;
-                    bcdown=60;
-                    newMessage("Three of your black diamonds turn to dust.");
-                    newMessage("You have entered Geometra's throne. Good luck!");
-                }
-            }
-            if (game.getNupuVajutus().a && !this.boughtAA && this.coins >=50) {
-                this.coins -=50;
+            if (game.getNupuVajutus().a && !this.boughtAA && this.coins >= 50) {
+                this.coins -= 50;
                 this.boughtAA = true;
-                }
-            if (game.getNupuVajutus().d && this.coins >=10) {
+                saveProgress();
+            }
+            if (game.getNupuVajutus().d && this.coins >= 10) {
                 this.coins -= 10;
-                this.damage +=5;
-                }
-            if (game.getNupuVajutus().h && this.coins >=25) {
-                this.coins -=25;
-                this.health +=25;
-                }
-            if (game.getNupuVajutus().i &&  this.coins >=40) {
-                this.coins -=40;
-                this.expPassive +=1;
-                this.coinRegen +=1;
-                }
-                taust.checkLevel();
+                this.damage += 5;
             }
-                if (boughtAA) autoAttack(aaDamage);
+            if (game.getNupuVajutus().h && this.coins >= 25) {
+                this.coins -= 25;
+                this.health += 25;
             }
+            if (game.getNupuVajutus().i && this.coins >= 40) {
+                this.coins -= 40;
+                this.expPassive += 1;
+                this.coinRegen += 1;
+            }
+
+            taust.checkLevel();
+        }
+        if (boughtAA) autoAttack(aaDamage);
+
 
         if (!this.checkHealth()) {
-           newMessage("Sa said surma!");
+            newMessage("Sa said surma!");
             this.health = this.maxHealth;
             taustanr = 1;
             //mangija.checkHealth();//Main.playing = false; // VANA GAMEOVER
-            }
+        }
         sekundid++;
         if (sekundid > regenTime) sekundid = 0;
-        }
+    }
 
     private void autoAttack(int aaDamage){
         if (tickCounter >= this.aaSpeed && mspawner.enemies.size() > 0){

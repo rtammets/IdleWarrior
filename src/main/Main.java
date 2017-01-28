@@ -5,6 +5,7 @@ import Kuva.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.io.*;
 
 import Main.Seisud.MangKaib;
 import Main.Seisud.State;
@@ -12,7 +13,9 @@ import Main.Sisendid.Sisendid;
 import Main.Sisendid.hiireSisend;
 
 import static Main.Seisud.MangKaib.mangija;
+import static Objektid.Player.playerInfo;
 import static Objektid.UIElements.Taust.areaNimi;
+import static Objektid.UIElements.Tekstid.newMessage;
 
 
 /**
@@ -47,10 +50,25 @@ public class Main implements Runnable {
         this.aknaHeight = aknaHeight;
         this.aknaNimi = aknaNimi;
         nupuVajutus = new Sisendid();
+       // saveProgress();
     }
 
     ///
     //TEST
+
+    public static void saveProgress (){
+        String fileName = (String) mangija.name+".txt";
+        try {
+            Writer salvestaja = new BufferedWriter(new OutputStreamWriter(
+                        new FileOutputStream(fileName),"utf-8"));{
+            salvestaja.write(playerInfo());
+            salvestaja.close();
+            newMessage(playerInfo());
+        }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 //////////////////////
