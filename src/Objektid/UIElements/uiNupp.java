@@ -2,21 +2,23 @@ package Objektid.UIElements;
 
 import Kuva.Assets;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 /**
  * Created by R on 27/01/2017.
  */
-public class uiNupp{
+public class uiNupp implements MouseListener {
 
-    int pildiNr, nx, ny, nw, nh;
+    int x,y,w,h, pildiNr;
 
-      public  uiNupp(int pildiNr) {
+      public uiNupp(int pildiNr, int x, int y, int w, int h) {
         super ();
-        this.nx = Assets.Nupp[pildiNr].getMinX();
-        this.ny = Assets.Nupp[pildiNr].getMinY();
-        this.nw = Assets.Nupp[pildiNr].getWidth();
-        this.nh = Assets.Nupp[pildiNr].getHeight();
-        this.pildiNr = pildiNr;
+          this.x = x;
+          this.y = y;
+          this.w = w;
+          this.h = h;
+      this.pildiNr = pildiNr;
     }
 
     public void tick(){
@@ -24,7 +26,32 @@ public class uiNupp{
     }
 
     public void draw (Graphics g){
-     //   g.drawImage(Assets.Nupp[pildiNr], (610+(35*pildiNr)),300,null);
+        g.drawImage(Assets.Nupp[pildiNr], x, y ,null);
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("mouseclicked");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.printf("mousepressed");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }

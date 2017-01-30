@@ -12,7 +12,6 @@ import java.awt.*;
 public class Kuva {
     //loon JFRame akna tegemise jaoks vajalikud muutujad
         private JFrame frame;
-        //frame(new FlowLayout);
         private String aknaNimi;
         private int aknaWidth, aknaHeight;
         private Canvas canvas; //siia sisse hakkan kuvama mänguelemente.
@@ -31,18 +30,15 @@ public class Kuva {
         frame = new JFrame(aknaNimi);//pealkirja määramine
         frame.setSize(aknaWidth,aknaHeight);//akna suuruse määramine
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Mängu "viisakas" sulgemiskäitumine
+
+        //
+        //frame.setLayout(new FlowLayout());
+        //JButton javaNupp = new JButton("butts");
+        //frame.add(javaNupp);
+        //
         frame.setResizable(false); //akna suurust ei saa muuta
         frame.setLocationRelativeTo(null); //uus aken tekib alati ekraani keskele
         frame.setVisible(true); //muudan akna nähtavaks
-        //NUPUD Scrapped for now
-        /*includen nupud paneel:
-        public static JPanel peaPaneel;
-        private JButton attackNupp;
-        peaPaneel = new JPanel();
-        peaPaneel.setLayout(new BoxLayout(peaPaneel, BoxLayout.Y_AXIS));
-        attackNupp = new JButton("Attack");
-        peaPaneel.get(canvas,attackNupp);*/
-
         canvas = new Canvas(); //uue kuva sisse canvas mänguelementidele
         canvas.addMouseListener(new hiireSisend());
         canvas.setPreferredSize(new Dimension(aknaWidth,aknaHeight));//akna suurus

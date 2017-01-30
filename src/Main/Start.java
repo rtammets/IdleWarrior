@@ -28,7 +28,6 @@ public class Start extends Application{
     Stage window;// loon Stage window, hiljem omistan väärtuse primaryStage
     Scene gamescene, menu;
     //    launch(args) käivitab JavaFX app-i. Stage = Kogu aken, akna sisu = scene.
-
     Main game = new Main("Idle Warrior", 800, 600);
     Label tervitus = new Label("Welcome to Idle Warrior" +"\nControls:\nSpace - shoot \nClick on enemies for more damage \nArrow keys - move between areas\nA; D; H; I; - shop");
     TextField tekstiVali = new TextField();
@@ -36,7 +35,7 @@ public class Start extends Application{
 
 
     public static void main(String[] args) {
-        System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
+        System.out.println("Idle Warrior");
         launch(args);
     }//psvm
         public void alusta (){
@@ -72,7 +71,7 @@ public class Start extends Application{
             gridLayout.getChildren().addAll(playButton,menuNupp2,tervitus,tekstiVali);
             menu = new Scene(gridLayout,250,250);
             //Akna seaded
-        window.setTitle("Idle Warrior 2");
+        window.setTitle("Idle Warrior");
         window.setScene(menu); //määran default akna
         window.show(); //näita akent
     }//mainLoop

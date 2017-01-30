@@ -6,14 +6,22 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 import Main.Seisud.MangKaib;
 import Main.Seisud.State;
 import Main.Sisendid.Sisendid;
 import Main.Sisendid.hiireSisend;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
+import javax.sound.midi.Soundbank;
+import javax.swing.*;
 
 import static Main.Seisud.MangKaib.mangija;
 import static Objektid.Player.playerInfo;
+import static Objektid.Player.setPlayerInfo;
 import static Objektid.UIElements.Taust.areaNimi;
 import static Objektid.UIElements.Tekstid.newMessage;
 
@@ -35,13 +43,14 @@ public class Main implements Runnable {
     private BufferStrategy bs; //jframe vahemälu muutuja - puhver info hoidmiseks.. ennetab graafilisi anomaaliaid
     private Graphics g;
 
+
+
 /////////////////////////
-    //Mänguseis
+    //Playing
     private State gameState;
     private State menuState;
     //KLAHVID
     private Sisendid nupuVajutus = new Sisendid();
-    //private hiireSisend hiireVajutus = new hiireSisend();
     private hiireSisend hiireVajutus = new hiireSisend();
 
     //kasutan kuva JFrame klassi, et luua mängu aken.
@@ -50,7 +59,6 @@ public class Main implements Runnable {
         this.aknaHeight = aknaHeight;
         this.aknaNimi = aknaNimi;
         nupuVajutus = new Sisendid();
-       // saveProgress();
     }
 
     ///
@@ -59,14 +67,35 @@ public class Main implements Runnable {
     public static void saveProgress (){
         String fileName = (String) mangija.name+".txt";
         try {
-            Writer salvestaja = new BufferedWriter(new OutputStreamWriter(
-                        new FileOutputStream(fileName),"utf-8"));{
-            salvestaja.write(playerInfo());
-            salvestaja.close();
-            newMessage(playerInfo());
-        }
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(
+                new FileOutputStream(fileName),"utf-8"));{
+                writer.write(playerInfo());
+                writer.close();
+                newMessage("Game saved!");
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void loadProgress () {
+    //otsime tegelase nimega savegame...
+        String fileName = (String) mangija.name+".txt";
+        try {
+            BufferedReader reader = new BufferedReader(
+                    new FileReader (fileName));
+            //kuvan enda loetud info
+            String loetudInfo;
+            String[] ik;
+             while ((loetudInfo = reader.readLine()) != null){
+                String[] testing = (loetudInfo.split(","));
+                // setPlayerInfo(loetudInfo);
+            }
+            reader.close();
+            newMessage("Loaded Character info!");
+        } catch (IOException e) {
+            newMessage("ERROR READING SAVEGAME :(");
+            //e.printStackTrace();
         }
     }
 
@@ -97,7 +126,6 @@ public class Main implements Runnable {
         g = bs.getDrawGraphics();// g on canvase muutuja, omistan talle puhvri sisu
         g.clearRect(0,0,aknaWidth,aknaHeight); //puhastab mänguakna enne uue framega täitmist
         if(State.leiaSeis() != null) State.leiaSeis().draw(g); //joonistab mänguaknasse spraidid
-        //setcolor ja kujundite joonistamine. neid kasutan hiljem, et teha hp bare jne....
         g.setFont(new Font("Arial", Font.BOLD, 13));
         g.drawString("Nimi: "+String.valueOf(mangija.title+mangija.name),610,25);
         g.drawString("Elud: "+String.valueOf(mangija.health),610,40);
@@ -106,7 +134,7 @@ public class Main implements Runnable {
         g.drawString("Coins: "+String.valueOf(mangija.coins),610,85);
         g.drawString("Kills: " + String.valueOf(mangija.killcount),610,100);
         g.drawString("Area: "+areaNimi,610,115);
-        /*g.setColor(Color.red);        g.fillRect(200,200,50,50);        g.setColor(Color.GRAY);        g.drawRect(250,250,50,50);*/
+        if (mangija.blackDiamonds>0)g.drawString("Black Diamonds: "+mangija.blackDiamonds,610,130);
         bs.show();//muudab pildi nähtavaks
         g.dispose();//viskab vana frame minema
     }

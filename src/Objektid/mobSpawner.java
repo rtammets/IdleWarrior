@@ -44,7 +44,6 @@ public class mobSpawner extends Tegelane {
         //kui vastaseid ei ole, tee uus
         if (Taust.taustanr > 1) {//kui pole safeZones
             if (enemies.size() <= maxEnemies - 1 && bcdown <=0) {
-
                 //hangib area apawntyped ja genereerib randomiga nende seast mobi mida spawnida
                 //checkSpawnTypes(){
                 //
@@ -84,7 +83,6 @@ public class mobSpawner extends Tegelane {
             tempMob = enemies.get(i);
             tempMob.draw(g);
         }
-
     }
 //Add/remove funktsioonid
     public void addSprite(Vastane tempMob){
@@ -92,9 +90,7 @@ public class mobSpawner extends Tegelane {
     }
     public void removeMob(Vastane tempMob){
         enemies.remove(tempMob);
-        mangija.aaDamage++;
     }
-
     //Kõikide mobide info
     //teen array mobide data jaoks, sama pikk kui Mobide spraitide array suurus
     //km = kõik mobid

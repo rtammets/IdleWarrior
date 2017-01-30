@@ -2,10 +2,12 @@ package Main.Seisud;
 
 
 
+import Kuva.Assets;
 import Main.Main;
 import Objektid.*;
 import Objektid.UIElements.*;
 
+import javax.swing.*;
 import java.awt.*;
 
 import static Kuva.Assets.Mobid;
@@ -18,15 +20,14 @@ import static Objektid.mobSpawner.km;
  */
 public class MangKaib extends State{
     public static Player mangija;
-//    public static Vastane vastane1;
     public static Taust taust;
     private uiBox kLiides;
     private uiSide kLiides2;
-    //    public static Magic magic;
     public static magicAttack magicAttack;
     public static mobSpawner mspawner;
     public static Tekstid uusRida;
-
+    //    public static Magic magic;
+    //    public static Vastane vastane1;
     public MangKaib(Main game){
         super(game);
         taust = new Taust(0,0,600,400);
@@ -35,7 +36,6 @@ public class MangKaib extends State{
         //game, width height draw x draw y, elud, damage, nimi, exp
         mangija = new Player(game, 97,174,50,370,100,10);
         mspawner = new mobSpawner(game, Mobid[13].getWidth(), Mobid[13].getHeight(), 450, 370, km[13].elud, km[13].dpsMin, km[13].dpsMax, km[13].mobSpeed, km[13].nimi, km[13].mobXp, km[13].mobGold,km[13].mobGold);
-//        mspawner = new mobSpawner(game, 97,147,450,370,50,5,1);
         magicAttack = new magicAttack(game,(mangija.x+mangija.width-15),(mangija.y-(mangija.height/2)),40,20,1,mangija.damage);
         kLiides = new uiBox(0,400,600,200);
         kLiides2 = new uiSide(600,0,200,600);

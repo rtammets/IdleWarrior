@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
+import static Main.Seisud.MangKaib.mangija;
 import static Main.ajaLoendur.ajaLoendur;
 
 /**
@@ -15,10 +16,6 @@ import static Main.ajaLoendur.ajaLoendur;
  */
 public class Tekstid {
     public static BufferedImage nupuke = Assets.Nupp[0];
-    public  BufferedImage nupuke1 = Assets.Nupp[1];
-    public  BufferedImage nupuke2 = Assets.Nupp[2];
-    public  BufferedImage nupuke3 = Assets.Nupp[3];
-//    public static BufferedImage[] nupud = new BufferedImage[Assets.Nupp.length];
 
 
     static LinkedList<String> chatbox = new LinkedList<>();
@@ -54,16 +51,13 @@ public class Tekstid {
         for (int i=0; i<maxRead; i++){
             chatbox.add(i, String.valueOf(" "));
         }
-    //    for (int i = 0; i<Assets.Nupp.length; i++){
-  //          nupud[i] = Assets.Nupp[i];
-     //   }
     }
 
     public Tekstid(int x, int y ){//nt width, int height) {
         this.x = x;
         this.y = y;
         teeRead();
-        newMessage("Hello and welcome to Idle Warrior by Rasmus Tammets!");
+        newMessage("Hello, "+ mangija.name+"! Welcome to Idle Warrior by rtammets!");
     }
 
     public static void newMessage(String message){
@@ -75,10 +69,6 @@ public class Tekstid {
             tekstiread++;
     }
 
-    public static void nupud(){
-
-    }
-
     public void tick() {
         if (Math.random()<0.000005){
             int i = (int)((Math.random()*(18-0))+0);
@@ -88,11 +78,7 @@ public class Tekstid {
 
     public void draw(Graphics g) {
         for (int i=0; i<Assets.Nupp.length; i++) g.drawImage(Assets.Nupp[i], (610+(35*i)),300,null);
-          /*  g.drawImage(Assets.Nupp[0],620,300,null);//dps
-            g.drawImage(nupuke1,660,300,null);//AA
-            g.drawImage(nupuke2,700,300,null);//heal
-            g.drawImage(nupuke3,740,300,null);//Idle gains
-        */
+
         for (int i=0; i<chatbox.size(); i++) {
              g.drawString(chatbox.get(i), x, (y+(i*15)));
         }

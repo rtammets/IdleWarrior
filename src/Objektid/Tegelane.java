@@ -31,9 +31,8 @@ public abstract class Tegelane extends Objekt {
         return kasElus;
     }
 
-
     //COLLISON CHECK!
-   ////   if (y < y2 && y+ height < y2 + height2 && x > x2 && x < x2 + width2) newMessage("TEST");
+   //if (y < y2 && y+ height < y2 + height2 && x > x2 && x < x2 + width2) newMessage("TEST");
 
     //passiivne tagasitulek või millegi teke (hp, raha)
     protected int generateResource(int regenAmount, int addToThis){
@@ -49,8 +48,7 @@ public abstract class Tegelane extends Objekt {
 //        System.out.println("rng rollis"+i);
         mangija.exp += mobXP;
         mangija.killcount +=1;
-        newMessage("Sinu XP: "+mangija.exp);
-//        System.out.println("Sinu XP: "+mangija.exp);
+        //newMessage("Sinu XP: "+mangija.exp);
         if (i > 0.99) {
             mangija.blackDiamonds +=1;
             newMessage("Found a super rare black diamond!!");
@@ -61,7 +59,7 @@ public abstract class Tegelane extends Objekt {
         }
 
         if (i < 0.5) {
-            //newMessage("The enemy dropped "+coinDrop+" coins.");
+            newMessage("The enemy dropped "+coinDrop+" coins.");
             mangija.coins += coinDrop;
 //            System.out.println("Said nänni!");  //testlause hetkel
         }

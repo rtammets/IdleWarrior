@@ -45,15 +45,17 @@ public class hiireSisend implements MouseListener, MouseMotionListener {
 
         if (mspawner.enemies.size() > 0) {
             if (checkClicked(mX, mY, mspawner.tempMob.x, mspawner.tempMob.width, mspawner.tempMob.y, mspawner.tempMob.height)) mspawner.tempMob.health -= mangija.clickDamage;
-            //newMessage(""+nupuke.getMinX()+nupuke.getWidth()+nupuke.getMinY()+nupuke.getHeight());
+                //newMessage(""+nupuke.getMinX()+nupuke.getWidth()+nupuke.getMinY()+nupuke.getHeight());
         }
-       /* Point clicked = e.getPoint();
+
+
+        Point clicked = e.getPoint();
         Rectangle bounds = new Rectangle (610,300, Assets.Nupp[0].getWidth(), Assets.Nupp[0].getHeight());
         if (bounds.contains(clicked)) {
-            newMessage(""+Assets.Nupp[0].getTileGridXOffset()+Assets.Nupp[0].getMinTileX());
-           newMessage("MIKS MOUSEEVENDID NII _ ON"); // target image was clicked
+//            newMessage(""+Assets.Nupp[0].getTileGridXOffset()+Assets.Nupp[0].getMinTileX());
+           newMessage("HIIRE ASJAD ON NÕMEDAD"); // target image was clicked
         }
-        */
+
 
       /*  for (int i = 0; i< Assets.Nupp.length; i++){
             int x =Assets.Nupp[i].getMinX();

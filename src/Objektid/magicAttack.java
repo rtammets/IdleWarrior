@@ -46,13 +46,13 @@ public class magicAttack extends Tegelane{
         //Kas kuul puutub vastast?
         if (m.size()>0) { // kontrollime ainult siis kui kuule on
             if (mspawner.enemies.size() > 0) {
+                int hit = (int) (mangija.damage*Math.random());
                 //tingimusel, et pole cooldownil, kontrollime tabamust võrreldes kuuli xy ja xy max vastase omadega.
                 if (bcd1 <= 0 && magicAttack.tempSprite.y < mspawner.tempMob.y && magicAttack.tempSprite.y+ magicAttack.tempSprite.height < mspawner.tempMob.y + mspawner.tempMob.height && magicAttack.tempSprite.x > mspawner.tempMob.x && this.x < mspawner.tempMob.x + mspawner.tempMob.width) {
-                    mspawner.tempMob.health = (mspawner.tempMob.health - magicAttack.tempSprite.damage);
+                    mspawner.tempMob.health = (mspawner.tempMob.health - hit);
                     removeSprite(magicAttack.tempSprite); //kuna vastane sai pihta kaob kuul ära
                     if (mspawner.tempMob.health<=0) mspawner.tempMob.health=0;
-                    newMessage("Hit enemy for: " + magicAttack.tempSprite.damage);
-                    //System.out.println("Vastasel elusid: " + mspawner.tempMob.health);
+                    newMessage("Hit enemy for: " + hit);
                     bcd1 = 35; //tuleb oodata enne järgmist damage kontrolli
                 }
             }
@@ -73,10 +73,10 @@ public class magicAttack extends Tegelane{
     }
 
     public void draw(Graphics g){
-           for (int i=0; i<m.size(); i++){
-               tempSprite = m.get(i);
-               tempSprite.draw(g);
-           }
+        for (int i=0; i<m.size(); i++){
+            tempSprite = m.get(i);
+            tempSprite.draw(g);
+        }
     }
 
     public void addSprite(Magic shot){
