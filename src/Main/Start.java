@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static Main.Main.loadProgress;
 import static Main.Seisud.MangKaib.mangija;
 
 
@@ -41,6 +42,7 @@ public class Start extends Application{
         public void alusta (){
             game.start();
             nameHolder = tekstiVali.getText();
+            if(tekstiVali.getText().length()<=0)nameHolder="Player";
             window.close();
         }
 

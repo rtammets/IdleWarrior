@@ -71,30 +71,33 @@ public class Main implements Runnable {
                 new FileOutputStream(fileName),"utf-8"));{
                 writer.write(playerInfo());
                 writer.close();
-                newMessage("Game saved!");
+                newMessage("Game Saved!");
             }
         } catch (IOException e) {
+            newMessage("GAME NOT SAVED, something went wrong!");
             e.printStackTrace();
         }
     }
 
-    public static void loadProgress () {
+    public static void loadProgress (String nimi) {
     //otsime tegelase nimega savegame...
-        String fileName = (String) mangija.name+".txt";
+        String fileName = (String) nimi+".txt";
         try {
             BufferedReader reader = new BufferedReader(
                     new FileReader (fileName));
             //kuvan enda loetud info
             String loetudInfo;
-            String[] ik;
-             while ((loetudInfo = reader.readLine()) != null){
-                String[] testing = (loetudInfo.split(","));
-                // setPlayerInfo(loetudInfo);
+            String[] processedStats;
+            while ((loetudInfo = reader.readLine()) != null){
+                processedStats = (loetudInfo.split(","));
+                setPlayerInfo(processedStats);
             }
+            //Anname mängijale STATSIIID <3
+            //
             reader.close();
-            newMessage("Loaded Character info!");
+            newMessage("Loaded Savegame!");
         } catch (IOException e) {
-            newMessage("ERROR READING SAVEGAME :(");
+            newMessage("No savegame found for "+nimi+".");
             //e.printStackTrace();
         }
     }
@@ -109,6 +112,7 @@ public class Main implements Runnable {
         Assets.init();
         gameState = new MangKaib(this);
         State.muudaSeisu(gameState);
+        loadProgress(mangija.name);
     }
 
     private void tick(){

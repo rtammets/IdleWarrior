@@ -48,8 +48,8 @@ public class Player extends Tegelane {
 
     //autoattacki jaoks
     public int aaDamage = 10;
-    private double aaSpeed = 140; //mitu gameticki oota enne autoattacki
-    public boolean boughtAA = false;
+    private int aaSpeed = 140; //mitu gameticki oota enne autoattacki
+    public int boughtAA = 0;
 
     //skill mana costs
     int manaCost = 5;
@@ -62,7 +62,7 @@ public class Player extends Tegelane {
     int wisdom = 1;
 
     public int killcount, exp, blackDiamonds;
-    public int coins = 55455450;
+    public int coins = 500;
 
     public int coinRegen = 0;
     public int expPassive = 0;
@@ -91,10 +91,31 @@ public class Player extends Tegelane {
         );
     }
 
-    public static void setPlayerInfo(String loadedStats){
+    public static void setPlayerInfo(String[] loadedStats){
         //lae .txt failist CSV-d ja määra mängijale.
         //tükeldame laetud info:
-        String[] pieces = loadedStats.split(",");
+        mangija.title = loadedStats[0];
+        mangija.name = loadedStats[1];
+        mangija.myLevel = Integer.parseInt(loadedStats[2]);
+        mangija.exp = Integer.parseInt(loadedStats[3]);
+        mangija.expToLevel = Integer.parseInt(loadedStats[4]);
+        mangija.coins = Integer.parseInt(loadedStats[5]);
+        mangija.coinRegen = Integer.parseInt(loadedStats[6]);
+        mangija.maxHealth = Integer.parseInt(loadedStats[7]);
+        mangija.health=mangija.maxHealth;
+        mangija.maxMana = Integer.parseInt(loadedStats[8]);
+        mangija.mana=mangija.maxMana;
+        mangija.killcount = Integer.parseInt(loadedStats[9]);
+        mangija.expPassive = Integer.parseInt(loadedStats[10]);
+        mangija.damage = Integer.parseInt(loadedStats[11]);
+        mangija.aaDamage = Integer.parseInt(loadedStats[12]);
+        mangija.aaSpeed = Integer.parseInt(loadedStats[13]);
+        mangija.boughtAA = Integer.parseInt(loadedStats[14]);
+        mangija.clickDamage = Integer.parseInt(loadedStats[15]);
+        mangija.blackDiamonds = Integer.parseInt(loadedStats[16]);
+        mangija.wisdom = Integer.parseInt(loadedStats[17]);
+        mangija.power = Integer.parseInt(loadedStats[18]);
+        mangija.vitality = Integer.parseInt(loadedStats[19]);
     }
 
 
@@ -157,32 +178,35 @@ public class Player extends Tegelane {
                 }
             }
             if (bcdown <= 0) {
-                if (game.getNupuVajutus().a && !this.boughtAA && this.coins >= 50) {
+                if (game.getNupuVajutus().a && this.boughtAA < 1 && this.coins >= 50) {
                     this.coins -= 50;
-                    this.boughtAA = true;
+                    this.boughtAA = 1;
+                    bcdown=60;
                 }
                 if (game.getNupuVajutus().d && this.coins >= 10) {
                     this.coins -= 10;
                     this.damage += 5;
-                    loadProgress();
+                    //loadProgress();
+                    bcdown=60;
                 }
                 if (game.getNupuVajutus().h && this.coins >= 25 && this.health != this.maxHealth) {
                     this.coins -= 25;
                     this.health += 25;
                     if (this.health>=this.maxHealth)this.health = this.maxHealth;
+                    bcdown=60;
                 }
-                if (game.getNupuVajutus().i && this.coins >= 40) {
-                    this.coins -= 40;
-                    this.expPassive += 1;
-                    this.coinRegen += 1;
+                if (game.getNupuVajutus().i){// && this.coins >= 40) {
+                    //this.coins -= 40;
+                    //this.expPassive += 1;
+                    //this.coinRegen += 1;
                     saveProgress();
+                    bcdown=60;
                 }
-                bcdown=60;
             }
             taust.checkLevel();
         }
 
-        if (boughtAA) autoAttack(aaDamage);
+        if (boughtAA>0) autoAttack(aaDamage);
 
         if (!this.checkHealth()) {//mangija.checkHealth();//Main.playing = false; // VANA GAMEOVER
             newMessage("Sa said surma!");
