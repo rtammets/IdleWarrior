@@ -22,7 +22,6 @@ public class Taust extends Objekt {
     }
 
 
-
     public static void checkLevel() {
         if (taustanr == 0){
               spawnMax = 0;

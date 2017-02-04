@@ -59,8 +59,8 @@ public class Start extends Application{
         //tagasiNupp.setOnAction(event -> window.setScene(menu));
 
             //esimene layout
-            VBox layoutMenu = new VBox(); //vbox teeb tulba muutuja on pikslite vahe
-            layoutMenu.getChildren().addAll(playButton,menuNupp2);
+          //  VBox layoutMenu = new VBox(); //vbox teeb tulba muutuja on pikslite vahe
+            //layoutMenu.getChildren().addAll(playButton,menuNupp2);
             //Peamenüü
             GridPane gridLayout = new GridPane();
             gridLayout.setPadding(new Insets(10,10,10,10));

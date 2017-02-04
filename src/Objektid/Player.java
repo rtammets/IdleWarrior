@@ -30,12 +30,12 @@ public class Player extends Tegelane {
     public String title = "";
     private int bcdown = 0; //buttoncheck Down
     public int posY = y - height;
-
+//game
     private double tickCounter = 0; // autoattacki tick counter
     int sekundid = 0;
     int regenTime = 240;
-    //Mängija muutujad
-
+    int saveTime = 60*60;
+//player
     //combat
     public int maxHealth;// hp baridega seonduva jaoks
     int maxMana = 100;
@@ -43,32 +43,26 @@ public class Player extends Tegelane {
     int healthRegen = 0;
     int manaRegen = 1;
     int barWidth = 100;
-
-    //
-
     //autoattacki jaoks
     public int aaDamage = 10;
     private int aaSpeed = 140; //mitu gameticki oota enne autoattacki
     public int boughtAA = 0;
-
-    //skill mana costs
+    //muud statsid
     int manaCost = 5;
-
     int expToLevel = 7;
     public static int myLevel = 1;
-    //
     int vitality = 1;
     int power = 1;
     int wisdom = 1;
-
     public int killcount, exp, blackDiamonds;
-    public int coins = 500;
-
+    public int coins = 0;
     public int coinRegen = 0;
     public int expPassive = 0;
     public int damage;
     public static int clickDamage = 4;
 
+    //SHOP PRICES
+    int[] poeHinnad = {0,0,0,0};
 
     private Main game;
 
@@ -133,6 +127,7 @@ public class Player extends Tegelane {
     public void tick() {
 
         bcdown--;
+        saveTime--;
         if (this.checkHealth()) {
             //generate resources
             if (sekundid >= regenTime) checkResources();
@@ -146,6 +141,17 @@ public class Player extends Tegelane {
                         bcdown = 60;
                     }
 
+                    if (taustanr == 1 && mangija.blackDiamonds >= 5) {
+                        mangija.blackDiamonds -= 5;
+                        Taust.taustanr = 5;
+                        bcdown = 60;
+                        newMessage("Five of your black diamonds turn to dust.");
+                        newMessage("You have entered Geometra's throne. Good luck!");
+                    }
+                    if (taustanr == 1) {
+                        bcdown = 60;
+                        newMessage("Come back when you've found enough black diamonds...");
+                    }
                 }
                 if (game.getNupuVajutus().down) {
                     if (taustanr == 6) {
@@ -164,17 +170,7 @@ public class Player extends Tegelane {
                         Taust.taustanr += 1;
                         bcdown = 60;
                     }
-                    if (taustanr == 4 && mangija.blackDiamonds >= 5) {
-                        mangija.blackDiamonds -= 5;
-                        Taust.taustanr += 1;
-                        bcdown = 60;
-                        newMessage("Five of your black diamonds turn to dust.");
-                        newMessage("You have entered Geometra's throne. Good luck!");
-                    }
-                    if (taustanr == 4 && mangija.blackDiamonds < 5) {
-                        bcdown = 60;
-                        newMessage("Come back when you've found enough black diamonds...");
-                    }
+
                 }
             }
             if (bcdown <= 0) {
@@ -189,17 +185,17 @@ public class Player extends Tegelane {
                     //loadProgress();
                     bcdown=60;
                 }
-                if (game.getNupuVajutus().h && this.coins >= 25 && this.health != this.maxHealth) {
-                    this.coins -= 25;
-                    this.health += 25;
+                if (game.getNupuVajutus().h && this.coins >= (this.maxHealth/9) && this.health != this.maxHealth) {
+                    this.coins -= (this.maxHealth/9);
+                    this.health += (this.maxHealth/9);
                     if (this.health>=this.maxHealth)this.health = this.maxHealth;
                     bcdown=60;
                 }
                 if (game.getNupuVajutus().i){// && this.coins >= 40) {
-                    //this.coins -= 40;
-                    //this.expPassive += 1;
-                    //this.coinRegen += 1;
-                    saveProgress();
+                    this.coins -= 40;
+                    this.expPassive += 1;
+                    this.coinRegen += 1;
+
                     bcdown=60;
                 }
             }
@@ -215,6 +211,10 @@ public class Player extends Tegelane {
         }
         sekundid++;
         if (sekundid > regenTime) sekundid = 0;
+        if (saveTime<=0) {
+            saveTime=60*60;
+            saveProgress();
+        }
     }
 
     private void autoAttack(int aaDamage){
@@ -242,14 +242,14 @@ public class Player extends Tegelane {
     private void checkLevel (){
         if (exp>=expToLevel){
             myLevel += 1;
-            Math.round (expToLevel *= 1.5);
-            newMessage("Congratulations, you are now level " +this.myLevel+". Exp to next level: "+this.expToLevel+".");
-            this.vitality +=1;
+            Math.round (expToLevel *= 1.35);
+            newMessage("Congratulations, you are now level " +this.myLevel+". Exp to next level: "+(this.expToLevel-this.exp)+".");
+            this.vitality +=2;
             this.power +=1;
             this.wisdom +=1;
-            this.maxHealth = Math.round(100+(this.vitality*5));
+            this.maxHealth = Math.round(100+(this.vitality*25));
             this.maxMana += this.wisdom*0.3;
-            this.healthRegen = (int) (this.vitality*0.2);
+            this.healthRegen = (int) (this.vitality*0.3);
             this.manaRegen = (int)(maxMana/100);
             this.mana = this.maxMana;
 		    this.health = this.maxHealth;

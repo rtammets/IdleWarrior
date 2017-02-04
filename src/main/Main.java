@@ -3,21 +3,13 @@ package Main;
 import Kuva.*;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.util.Scanner;
 
 import Main.Seisud.MangKaib;
 import Main.Seisud.State;
 import Main.Sisendid.Sisendid;
 import Main.Sisendid.hiireSisend;
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import javax.sound.midi.Soundbank;
-import javax.swing.*;
 
 import static Main.Seisud.MangKaib.mangija;
 import static Objektid.Player.playerInfo;
@@ -102,6 +94,13 @@ public class Main implements Runnable {
         }
     }
 
+    public static void devHax (){
+            mangija.exp = 6666666;
+            mangija.coins = 6666666;
+            mangija.blackDiamonds = 666666;
+            mangija.title = "The ";
+            newMessage("dev hax enabled");
+        }
 
 //////////////////////
     private void init(){ //valmistab ette uue mängu.
@@ -113,6 +112,7 @@ public class Main implements Runnable {
         gameState = new MangKaib(this);
         State.muudaSeisu(gameState);
         loadProgress(mangija.name);
+        if (mangija.name.equals("dev"))devHax();
     }
 
     private void tick(){
