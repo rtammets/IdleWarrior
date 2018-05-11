@@ -1,27 +1,29 @@
 package Main.Sisendid;
 
-import Kuva.Assets;
-import Main.Seisud.MangKaib;
-import Objektid.UIElements.Tekstid;
-import Objektid.mobSpawner;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import static Kuva.Assets.bounds;
 import static Main.Seisud.MangKaib.mangija;
 import static Objektid.UIElements.Tekstid.*;
 import static Main.Seisud.MangKaib.mspawner;
+
 
 /**
  * Created by R on 19/01/2017.
  */
 public class hiireSisend implements MouseListener, MouseMotionListener {
 
-
-
-
+    int dmgPrice = 10;
+    int aaDprice = 40;
+    int aaSprice = 50;
+    int idlePrice = 50;
+    int critPrice = 50;
+    int critDprice = 50;
+    int kbPrice = 50;
     public void mouseClicked(MouseEvent e){
 
        // newMessage("KEEGI VAJUTAS MIDAGI: " +e.getX()+" " + e.getY());
@@ -48,56 +50,50 @@ public class hiireSisend implements MouseListener, MouseMotionListener {
                 //newMessage(""+nupuke.getMinX()+nupuke.getWidth()+nupuke.getMinY()+nupuke.getHeight());
         }
 
-
         Point clicked = e.getPoint();
-        Rectangle bounds = new Rectangle (610,300, Assets.Nupp[0].getWidth(), Assets.Nupp[0].getHeight());
-        if (bounds.contains(clicked)) {
-//            newMessage(""+Assets.Nupp[0].getTileGridXOffset()+Assets.Nupp[0].getMinTileX());
-           newMessage("HIIRE ASJAD ON NÕMEDAD"); // target image was clicked
-        }
 
+        for (int i = 0; i < bounds.length; i++) {
+            if (bounds[i].contains(clicked)) {
+                //newMessage("Vajutasid nupule nr " + i + "."); // target image was clicked
+                //POOD / clickables?
+                switch (i) {
+                    //DMG
+                    case 0: if (mangija.coins >= dmgPrice) {mangija.coins -=dmgPrice; mangija.damage +=5; dmgPrice +=10; newMessage("Bought more damage for " + dmgPrice+ " coins!");}
+                        break;
+                    //AA
+                    case 1: if (mangija.boughtAA < 1 && mangija.coins >= 50) {mangija.coins -=50; mangija.boughtAA = 1; newMessage("Bought autoattack ability.");}
+                        break;
+                    //Heal
+                    case 2: if (mangija.coins >= (mangija.maxHealth/9) && mangija.health != mangija.maxHealth) {mangija.coins -=(mangija.maxHealth/9); mangija.health += (mangija.maxHealth/9); if (mangija.health >= mangija.maxHealth) mangija.health = mangija.maxHealth; newMessage("Healed some health.");}
+                        break;
+                    //idle gains
+                    case 3: if (mangija.coins >= idlePrice) {mangija.coins -=idlePrice; mangija.expPassive += 1; mangija.coinRegen += 1; idlePrice +=30; newMessage("Upgraded passive incomes for" + idlePrice+ " coins!");}
+                        break;
+                    //knockback
+                    case 4: if (mangija.kbDistance < 300 && mangija.coins >= kbPrice) {mangija.coins -=kbPrice; mangija.kbDistance += 5; newMessage("Upgraded knockback for " + kbPrice + " coins!");}
+                        break;
+                    //AA speed
+                    case 5: if (mangija.aaSpeed > 70 && mangija.coins >= aaSprice) {mangija.coins -=aaSprice; mangija.aaSpeed -= 1; aaSprice += 25; newMessage("Upgraded autoattack speed for " + aaSprice+ " coins!");}
+                        break;
+                    //AA deeps
+                    case 6: if (mangija.coins >= aaDprice) {mangija.coins -=aaDprice; mangija.aaDamage += 1; aaDprice += 10; newMessage("Upgraded autoattack damage for " + aaDprice + " coins!");}
+                        break;
+                    //Button game
+                    case 7: if (mangija.boughtBTN < 1 && mangija.coins >= 100) {mangija.coins -= 100; mangija.boughtBTN = 1; newMessage("Wanna play a little (button) game?");}
+                        break;
+                    //Crit %
+                    case 8: if (mangija.critch < 100 && mangija.coins >= critPrice) {mangija.coins -=critPrice; mangija.critch += 1; critPrice += 25; newMessage("Bought Crit Chance upgrade for " + critPrice + " coins!");}
+                        break;
+                    //Crit damage %
+                    case 9: if (mangija.critdmg < 250 && mangija.coins >= critDprice) {mangija.coins -=critDprice; mangija.critdmg += 1; critDprice += 25; newMessage("Bought Crit Multi upgrade for " + critDprice + " coins!");}
+                        break;
 
-      /*  for (int i = 0; i< Assets.Nupp.length; i++){
-            int x =Assets.Nupp[i].getMinX();
-            int y =Assets.Nupp[i].getMinY();
-            int w =Assets.Nupp[i].getWidth();
-            int h =Assets.Nupp[i].getHeight();
-            if (checkClicked(mX, mY, x, y, w, h)) {
-                switch (i){
-                    case 0://DAMAGE NUPP
-                        if (mangija.coins >= 10){
-                            mangija.coins -= 10;
-                            mangija.damage +=5;
-                        }
-                        break;
-                    case 1://AA
-                        if (!mangija.boughtAA && mangija.coins >=50){
-                            mangija.coins -=50;
-                            mangija.boughtAA = true;
-                        }
-                        break;
-                    case 2://HEAL
-                        if (mangija.coins >= 25 && (mangija.health-25)<mangija.maxHealth){
-                            mangija.coins -=25;
-                            mangija.health +=25;
-                        }
-                        break;
-                    case 3://IDLE GAINS
-                        if (mangija.coins >= 40){
-                            mangija.coins -=40;
-                            mangija.expPassive +=1;
-                            mangija.coinRegen +=1;
-
-                        }
-                        break;
-                    default: newMessage("midagi läks valesti lol");
-                    break;
+                    default: newMessage("button error " + i);
                 }
 
+                //saaks teha clicked X ja playeri / poe klassi all tegevuse teha
             }
-
-
-        }*/
+        }
     }
 
 
@@ -125,7 +121,4 @@ public class hiireSisend implements MouseListener, MouseMotionListener {
         newMessage("mouseMoved");
 
     }
-
-
 }
-

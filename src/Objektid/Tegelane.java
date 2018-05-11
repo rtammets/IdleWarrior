@@ -1,6 +1,9 @@
 package Objektid;
 
+import Objektid.Gear.Item;
+
 import static Main.Seisud.MangKaib.mangija;
+import static Objektid.Gear.Item.itemList;
 import static Objektid.UIElements.Tekstid.newMessage;
 
 /**
@@ -41,6 +44,10 @@ public abstract class Tegelane extends Objekt {
     }
 
     //looti + exp funktsioon millegi suremisel kasutamiseks
+    // IMPROVE THIS
+    //
+    //
+    //
     public double Loot(int mobXP) {
         double i = Math.random();
         int coinDrop = (int) Math.round(Math.random()*50 + (mangija.myLevel));
@@ -53,11 +60,24 @@ public abstract class Tegelane extends Objekt {
             mangija.blackDiamonds +=1;
             newMessage("Found a super rare black diamond!!");
         }
-        if (i > 0.7 && i < 0.75) {
-            mangija.damage += 1;
+        if (i > 0.7 && i < 0.74) {
+            mangija.baseDamage += 1;
             newMessage("Found damage upgrade!");
         }
-
+        if (i > 0.75 && i < 0.79) {
+            mangija.baseArmor += 1;
+            newMessage("Found armor upgrade!");
+        }
+        if (i > 0.8 && i < 0.85 && mangija.health > mangija.maxHealth) {
+            mangija.health += 1;
+            newMessage("Picked up some health!");
+        }
+        if (i > 0.6 && i < 0.699) {
+            new Item(420);
+            //System.out.println(itemList.get(itemList.size()-1).getItemStats());
+            mangija.equipItem(itemList.size()-1);
+            //newMessage("made an item, too bad it is useless for you right now :(");
+        }
         if (i < 0.5) {
             newMessage("The enemy dropped "+coinDrop+" coins.");
             mangija.coins += coinDrop;

@@ -23,6 +23,7 @@ public class MangKaib extends State{
     public static Taust taust;
     private uiBox kLiides;
     private uiSide kLiides2;
+    //
     public static magicAttack magicAttack;
     public static mobSpawner mspawner;
     public static Tekstid uusRida;

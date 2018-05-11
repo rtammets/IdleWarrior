@@ -40,9 +40,11 @@ public class Vastane extends Tegelane {
     }
 
     private void hitPlayer (){
-
         if (this.x <= MangKaib.mangija.x + MangKaib.mangija.width) {
+            //damage roll
             int hitDamage = (int)Math.round(Math.random()*(this.damageMax-damageMin)+damageMin);
+            //armor reduction
+            hitDamage= hitDamage-hitDamage*(MangKaib.mangija.pArmor/(MangKaib.mangija.pArmor+10*hitDamage));
             MangKaib.mangija.health -= hitDamage;
             newMessage("You got hit for: " + hitDamage+".");
            // System.out.println("Said viga, elusid järel: " + MangKaib.mangija.health);
@@ -50,7 +52,7 @@ public class Vastane extends Tegelane {
     }
 
     public int Move (int kiirus) { //mängija suunas liikumine
-     if (this.knockback && this.x < MangKaib.mangija.x + MangKaib.mangija.width+100){
+     if (this.knockback && this.x < MangKaib.mangija.x + MangKaib.mangija.width+MangKaib.mangija.kbDistance){
          return (this.x+(6*this.kiirus));
         } if (this.knockback && this.x > MangKaib.mangija.x + MangKaib.mangija.width+100) {
             this.knockback = false;

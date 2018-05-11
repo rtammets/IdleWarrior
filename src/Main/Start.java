@@ -79,7 +79,7 @@ public class Start extends Application{
     }//mainLoop
 }
 /*    public static void main(String[] args) {
-        System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets) AK11");
+        System.out.println("[i200] Idle Warrior mäng - Rasmus Tammets(rtammets)");
         Main game = new Main("IDLE WARRIOR", 600, 400); //loo sellise nime ja kujuga aken
         game.start();//käivita mängu Main thread
     }

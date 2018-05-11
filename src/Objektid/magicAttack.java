@@ -46,7 +46,7 @@ public class magicAttack extends Tegelane{
         //Kas kuul puutub vastast?
         if (m.size()>0) { // kontrollime ainult siis kui kuule on
             if (mspawner.enemies.size() > 0) {
-                int hit = (int) (mangija.damage*Math.random());
+                int hit = (int)(mangija.damage*Math.random());
                 //tingimusel, et pole cooldownil, kontrollime tabamust võrreldes kuuli xy ja xy max vastase omadega.
                 if (bcd1 <= 0 && magicAttack.tempSprite.y < mspawner.tempMob.y && magicAttack.tempSprite.y+ magicAttack.tempSprite.height < mspawner.tempMob.y + mspawner.tempMob.height && magicAttack.tempSprite.x > mspawner.tempMob.x && this.x < mspawner.tempMob.x + mspawner.tempMob.width) {
                     mspawner.tempMob.health = (mspawner.tempMob.health - hit);

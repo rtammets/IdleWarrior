@@ -1,7 +1,12 @@
 package Kuva;
 
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.sql.SQLOutput;
+import java.util.Arrays;
+
+import static Objektid.UIElements.Tekstid.newMessage;
 
 
 /**
@@ -11,7 +16,9 @@ public class Assets {
     public static BufferedImage player, magic, magicAA, uiKonsool,uiSideBar;
     public static BufferedImage[] Taustad = new BufferedImage[7];//{};//{playWindow,secretCamp,windyPlains};
     public static BufferedImage[] Mobid = new BufferedImage[26];//{};//{zombie,player};
-    public static BufferedImage[] Nupp = new BufferedImage[15];
+    public static BufferedImage[] Nupp = new BufferedImage[10];
+    public static Rectangle[] bounds = new Rectangle[Nupp.length];
+
     //public static BufferedImage[] userInterface = new BufferedImage[3]; // UI
 
     public static void init(){
@@ -30,6 +37,12 @@ public class Assets {
         Nupp[1] = spraidid.crop(600,2140,31,31);//AA
         Nupp[2] = spraidid.crop(152,1062,30,30);//HEAL
         Nupp[3] = spraidid.crop(760,2140,31,31);//IDLE
+        Nupp[4] = spraidid.crop(720,2180,31,31);//knockback
+        Nupp[5] = spraidid.crop(640,2140,31,31);//AAspeed
+        Nupp[6] = spraidid.crop(680,2140,30,30);//AAdamage
+        Nupp[7] = spraidid.crop(680,2220,31,31);//Button game
+        Nupp[8] = spraidid.crop(640,2100,31,31);//Crit%
+        Nupp[9] = spraidid.crop(680,2100,31,31);//Crit Dmg%
 
         uiKonsool = spraidid.crop(200,900,595,100); //UI-Box
         uiSideBar = spraidid.crop(0,500,200,500); //UI-BOTTOM
@@ -72,6 +85,34 @@ public class Assets {
 
         magic = spraidid.crop(51,406,47,18); //player attack
         magicAA = spraidid.crop(0,451,33,11); //Autoattack attack
+
+
+        makeRects();
+        System.out.println(Arrays.toString(bounds));
+    }
+
+    public static void makeRects() {
+        //X ja Y asukoha placeholder
+        int nuppX = 610;
+        int nuppY = 450;
+        //Rectangle array loomine Nuppude arvu järgi
+        for (int i = 0; i < Nupp.length; i++){
+            System.out.println("Nupp length: "+ Nupp.length+ " i: " + i);
+            bounds[i] = new Rectangle(nuppX, nuppY, Nupp[i].getHeight(), Nupp[i].getHeight());
+
+                if (nuppX < 785) {
+                    nuppX += 35;
+                }
+                if (nuppX >= 785) {
+                    nuppX = 610; nuppY += 35;
+                }
+                if (nuppY >= 520) nuppY = 450;
+           //     if (i>=Assets.Nupp.length) i=0;
+
+
+
+
+        }
     }
 
 }
